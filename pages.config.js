@@ -7,7 +7,7 @@ module.exports = {
         entry: 'src/pages/index/index.js',
         filename: 'index.html',
         template,
-        title: '年度盛典',
+        title: 'app路由',
         chunks: ['chunk-vendors', 'chunk-common', 'chunk-index-vendors', 'index']
     }
 };

@@ -4,15 +4,16 @@ import {setToken, getToken, isTokenValidateFormat} from '@/utils/token';
 
 const data = function() {
     return {
-        isCanIUserLogin: false,
-        isCanGoTab: false,
-        pageLoaded: false,
         isPiPiApp: false,
         isLogin: false,
-        isReady: false
+        version: '1.0.0'
     }
 }
 const methods = {
+    // 不在app环境时，无法使用相关功能，是否需要跳转到app下载页（根据项目需要开启或关闭）
+    notInApp() {
+        // this.downLoadApp();
+    },
     // app官方下载
     downLoadApp() {
         window.location.href = process.env.VUE_APP_DOWN_APP_URL;
@@ -21,7 +22,7 @@ const methods = {
     pullLogin() {
         this.isLogin = false;
         return new Promise((resolve, reject) => {
-            if (this.isCanIUserLogin) {
+            if (utils.compareVersion(this.version, '1.2.9') >= 0) {
                 FLPP.JSBridge.func.login(res => {
                     if (res.action === 'success') {
                         setToken('token', res.data.token);
@@ -49,11 +50,22 @@ const methods = {
     },
     // 拉起app分享
     pullShare() {
-
+        const url = window.location.href;
+        FLPP.JSBridge.func.share({
+            data: {
+                title: '就差你的一票啦！',
+                content: '我正在参加“皮皮2019年度MVP人气陪练”竞选活动，就差你的一票了，动动手指，为我投票吧！爱你哦~',
+                image: process.env.BASE_URL + 'static/images/share.png',
+                url: url,
+                copy: url
+            }
+        })
     },
     // 拉起app分享
     goToShare() {
-        if (this.isLogin) {
+        if (!this.isPiPiApp) {
+            this.notInApp();
+        } else if (this.isLogin) {
             this.pullShare();
         } else {
             this.pullLogin( this.goToShare );
@@ -65,49 +77,41 @@ const methods = {
      * @return {null}
      */
     goAppTab(tabIdx) {
-        if (this.isCanGoTab) {
-            const para = app.routers.openAppTab(tabIdx);
-            app.invoke(para);
+        if (this.isPiPiApp) {
+            this.notInApp();
+        } else if (utils.compareVersion(this.version, '1.3.3') >= 0) {
+           app.routers.openAppTab(tabIdx);
         } else {
-            this.goBackToApp();
+            console.log('版本过低，请先升级app');
         }
     },
     // 打开我的下单记录
     goToOrderPage() {
-        if (this.isLogin) {
-            const para = app.routers.openOrderList();
-            app.invoke(para);
+        if (!this.isPiPiApp) {
+            this.notInApp();
+        } else if (this.isLogin) {
+            app.routers.openOrderList();
         } else {
             this.pullLogin( this.goToOrderPage )
         }
     },
     // 关闭页面，返回app
     goBackToApp() {
-        if (this.isPiPiApp) {
-            FLPP.JSBridge.invoke({
-                cmd: 'func.goBack',
-                data: {}
-            })
-        } else {
-            window.history.go(-1);
-        }
+        app.routers.goBackToApp();
     },
     pageReady() {
         if (FLPP.JSBridge.isPiPiApp) {
             FLPP.JSBridge.func.ready(res => {
                 const data = res.data || {};
                 const token = data.token || getToken();
+                this.version = data.version;
                 this.isLogin = isTokenValidateFormat(token);
-                this.isReady = true;
                 this.isPiPiApp = true;
-                this.isCanGoTab = utils.compareVersion(window.FLPPJSBridge.version, '1.3.3') >= 0;
-                this.isCanIUserLogin = utils.compareVersion(window.FLPPJSBridge.version, '1.2.9') >= 0;
                 // 初始化
                 this.initFetch && this.initFetch(true);
             })
         } else {
             this.isLogin = false;
-            this.isReady = true;
             this.isPiPiApp = false;
             // 初始化
             this.initFetch && this.initFetch(false);

@@ -2,8 +2,7 @@ let pages = require('./pages.config');
 
 module.exports = {
   devServer: {
-    port: 9366,
-    https: false
+    port: 9366
   },
   pages,
   outputDir: process.env.VUE_APP_BUILD_OUTPUT_DIR,
