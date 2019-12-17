@@ -1,0 +1,54 @@
+/*弹窗动画*/
+@keyframes animFadeIn{
+    0%{opacity:0;}
+    100%{opacity:1;}
+}
+@keyframes animFadeOut{
+    0%{opacity:1;}
+    100%{opacity:0;}
+}
+@keyframes animZoomIn{
+    0%{opacity:0;transform:scale3d(0.3,0.3,0.3);}
+    50%{opacity:1;}
+}
+@keyframes animZoomOut{
+    0%{opacity:1;}
+    50%{opacity:0;transform:scale3d(0.3,0.3,0.3);}
+    100%{opacity:0;}
+}
+@keyframes animSlideInUp{
+    0%{transform:translate3d(0,100%,0);visibility:visible;}
+    100%{transform:translate3d(0,0,0);}
+}
+@keyframes animSlideOutUp{
+    0%{transform:translate3d(0,0,0);}
+    100%{transform:translate3d(0,-100%,0);visibility:hidden;}
+}
+@keyframes animSlideInDown{
+    0%{transform:translate3d(0,-100%,0);visibility:visible;}
+    100%{transform:translate3d(0,0,0);}
+}
+@keyframes animSlideOutDown{
+    0%{transform:translate3d(0,0,0);}
+    100%{transform:translate3d(0,100%,0);visibility:hidden;}
+}
+.modal-zoom-enter-active{animation:animZoomIn 0.3s both;}
+.modal-zoom-leave-active{animation:animZoomOut 0.3s both;}
+.modal-fadeIn-enter-active{animation:animFadeIn 0.3s both;}
+.modal-fadeIn-leave-active{animation:animFadeOut 0.3s both;}
+.modal-slideIn-enter-active{animation:animSlideInUp 0.3s both;}
+.modal-slideIn-leave-active{animation:animSlideOutDown 0.3s both;}
+.modal-slideOutDown-enter-active{animation:animSlideInDown 0.3s both;}
+.modal-slideOutDown-leave-active{animation:animSlideOutUp 0.3s both;}
+
+/*处理slide-in时mask问题*/
+.modal-slideIn-enter-active .mask{animation:aaa 0.3s both;}
+.modal-slideIn-leave-active .mask{animation:bbb 0.3s both;}
+@keyframes aaa{
+    0%{transform:translate3d(0,-100%,0);opacity:0;}
+    100%{transform:translate3d(0,0,0);opacity:1;}
+}
+@keyframes bbb{
+    0%{transform:translate3d(0,0,0);opacity:1;}
+    100%{transform:translate3d(0,-100%,0);opacity:0;}
+}

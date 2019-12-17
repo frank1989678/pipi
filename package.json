@@ -1,0 +1,35 @@
+{
+  "name": "pipi",
+  "version": "1.0.0",
+  "description": "tools",
+  "main": "index.js",
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "staging": "cross-env NODE_ENV=production vue-cli-service build --mode staging",
+    "production": "cross-env NODE_ENV=production vue-cli-service build --mode production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/frank1989678/pipi.git"
+  },
+  "author": "frank",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/frank1989678/pipi/issues"
+  },
+  "homepage": "https://github.com/frank1989678/pipi#readme",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "babel-polyfill": "^6.26.0",
+    "vant": "^2.2.16",
+    "vue": "^2.6.11"
+  },
+  "devDependencies": {
+    "vue-template-compiler": "^2.5.17",
+    "@vue/cli-plugin-babel": "^3.0.1",
+    "@vue/cli-plugin-eslint": "^3.0.1",
+    "@vue/cli-service": "^3.0.1",
+    "browser-sync": "^2.24.7"
+  }
+}

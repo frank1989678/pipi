@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <!--用百度打开网页可能会对其进行转码（比如贴广告），避免转码可添加如下meta-->
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <!-- uc强制竖屏 -->
+    <meta name="screen-orientation" content="portrait">
+    <!-- QQ强制竖屏 -->
+    <meta name="x5-orientation" content="portrait">
+    <!-- UC强制全屏 -->
+    <meta name="full-screen" content="yes">
+    <!-- QQ强制全屏 -->
+    <meta name="x5-fullscreen" content="true">
+    <!-- UC应用模式 -->
+    <meta name="browsermode" content="application">
+    <!-- QQ应用模式 -->
+    <meta name="x5-page-mode" content="app">
+    <% if (VUE_APP_ENVIRONMENT!=='local') { %>
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <% } %>
+    <title><%= htmlWebpackPlugin.options.title %></title>
+    <link rel="icon" href="https://h5-public.apeiwan.com/library/assets/images/favicon.ico">
+    <link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/1.1.3/weui.min.css">
+
+    <% if (VUE_APP_ENVIRONMENT !== 'production') { %>
+    <script src="<%= BASE_URL %>vConsole.js"></script>
+    <% } %>
+</head>
+<body>
+<div id="app"></div>
+<script src="https://h5-public.apeiwan.com/library/vue@2.6.9/dist/vue.min.js"></script>
+<script src="https://h5-public.apeiwan.com/library/lazysizes/index.min.js"></script>
+<script src="https://h5-public.apeiwan.com/library/Device/1.0.0/index.js"></script>
+<script src="https://h5-public.apeiwan.com/library/JSBridge/2.0.0/index.js"></script>
+<script src="https://h5-public.apeiwan.com/library/swiper/swiper.min.js"></script>
+<script src="https://res.wx.qq.com/open/libs/weuijs/1.1.4/weui.min.js"></script>
+</body>
+</html>
