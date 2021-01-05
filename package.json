@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/frank1989678/pipi#readme",
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "babel-polyfill": "^6.26.0",
     "vant": "^2.2.16",
     "vue": "^2.6.11"
